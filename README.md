@@ -1,10 +1,12 @@
-#Simple_Shell Project
+# Simple_Shell Project
 
-###AUTHORS
-[Ahmed Raed](https://github.com/ahmedraed101)
-[Mohamed Abdelhaleem](https://github.com/Mohamedabdelhaleemprof)
+### AUTHORS
 
-###some information about Unix shell
+- [Ahmed Raed](https://github.com/ahmedraed101)
+
+- [Mohamed Abdelhaleem](https://github.com/Mohamedabdelhaleemprof)
+
+### some information about Unix shell
 - In 1969 a team led by computer scientists Ken Thompson and Dennis Ritchie
 created the first version of UNIX on a PDP-7 minicomputer, which was chosen
 mainly because of Thompson's familiarity with the system from his hobby
