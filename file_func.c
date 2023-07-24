@@ -5,7 +5,6 @@
 /**
  * find_path - resolve the path of command execution
  * @command: command to be executed
- * @path: path of execution
  * Return: path or NULL if not.
  */
 char *find_path(char *command)
@@ -40,22 +39,6 @@ char *find_path(char *command)
 	return (NULL);
 }
 
-/**
-void run_file(char **args)
-{
-	pid_t child_pid;
-	int status;
-
-	child_pid = fork();
-	if (child_pid == 0)
-	{
-		if (execve(args[0], args, environ) == -1)
-			perror(_getenv("_"));
-	}
-	else
-		wait(&status);
-}
-*/
 
 /**
  * _concat - joins two strings with a slash between them
