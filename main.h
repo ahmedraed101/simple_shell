@@ -27,8 +27,12 @@ char *_getenv(char *name);
 int _setenv(char *name, char *value, int overwrite);
 int _unsetenv(char *name);
 
-char *get_full_path(char *path, char *filename);
 char *find_path(char *);
+char *_concat(char *str1, char *sep, char *str2);
 void run_file(char **);
+char *_strdup(char *str);
+void *_memcpy(void *dest, void *src, int n);
+
+int execute_command(char **);
 
 #endif

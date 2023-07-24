@@ -1,37 +1,46 @@
 #include "main.h"
 
 
-char *find_path(char *file_name)
-{
-	return (file_name);
-}
+#include "main.h"
 /**
-char *old_find_path(char *file_name)
+ * find_path - resolve the path of command execution
+ * @command: command to be executed
+ * @path: path of execution
+ * Return: path or NULL if not.
+ */
+char *find_path(char *command)
 {
-	char *file_path;
-	struct stat st;
-	int i = 0;
+	char *path = getenv("PATH");
+	char *token, *temp, *c_path;
 
-	if (stat(file_name, &st) == 0)
-		return (file_name);
-	char *paths = _getenv("PATH");
-	char *path = _strtok(paths, ":");
-
-	while (path)
+	temp = _strdup(path);
+	if (temp == NULL)
 	{
-		struct stat st_path;
-		file_path = get_full_path(path, file_name);
-
-		if (stat(file_path, &st_path) == 0)
-			return (file_path);
-		path = _strtok(NULL, ":");
+		perror(getenv("_"));
+		exit(EXIT_FAILURE);
 	}
-	free(file_path);
+	token = strtok(temp, ":");
+	while (token != NULL)
+	{
+		c_path = _concat(token, "/", command);
+		if (c_path == NULL)
+		{
+			perror(getenv("_"));
+			exit(EXIT_FAILURE);
+		}
+		if (access(c_path, F_OK) == 0 && access(c_path, X_OK) == 0)
+		{
+			free(temp);
+			return (c_path);
+		}
+		free(c_path);
+		token = strtok(NULL, ":");
+	}
+	free(temp);
 	return (NULL);
 }
-*/
 
-
+/**
 void run_file(char **args)
 {
 	pid_t child_pid;
@@ -46,34 +55,76 @@ void run_file(char **args)
 	else
 		wait(&status);
 }
+*/
 
+/**
+ * _concat - joins two strings with a slash between them
+ * @str1: first string
+ * @sep: /
+ * @str2: second string
+ * Return: NULL on error or the concattenated string on success.
+ */
 
-char *get_full_path(char *path, char *filename)
+char *_concat(char *str1, char *sep, char *str2)
 {
-	char *return_p;
-	int path_len = _strlen(path);
-	int filename_len = _strlen(path);
-	int file_path_len = path_len + filename_len + 2;
-	char *file_path = malloc(sizeof(char) * file_path_len);
+	char *new_str;
+	size_t len1, len2, len3, i, j;
 
-	if (file_path == NULL || path == NULL || filename == NULL)
+	len1 = _strlen(str1);
+	len2 = _strlen(sep);
+	len3 = _strlen(str2);
+	new_str = malloc(len1 + len2 + len3 + 1);
+
+	if (!new_str)
 		return (NULL);
+	for (i = 0; str1[i]; i++)
+		new_str[i] = str1[i];
+	j = i;
+	for (i = 0; sep[i]; i++)
+		new_str[j + i] = sep[i];
+	j += i;
+	for (i = 0; str2[i]; i++)
+		new_str[j + i] = str2[i];
+	j += i;
+	new_str[j] = '\0';
+	return (new_str);
+}
 
-	(return_p = file_path);
-	while (*path != '\0')
+
+/**
+ * _strdup - copies a string
+ * @str: string to be copied
+ * Return: copied string
+ */
+char *_strdup(char *str)
+{
+	char *new_str;
+	int len = _strlen(str) + 1;
+
+	new_str = malloc(len);
+	if (new_str == NULL)
+		return (NULL);
+	_memcpy(new_str, str, len);
+	return (new_str);
+}
+
+/**
+ *_memcpy - copies a memory block
+ *@dest: pointer to new memory block
+ *@src: pointer to source memory block
+ *@n: the number of bytes to be copied
+ *Return: Void.
+ */
+
+void *_memcpy(void *dest, void *src, int n)
+{
+	char *d = dest;
+	const char *s = src;
+	int i;
+
+	for (i = 0; i < n; i++)
 	{
-		*file_path = *path;
-		path++;
-		file_path++;
+		d[i] = s[i];
 	}
-	*file_path = '/';
-	file_path++;
-	while (*filename != '\0')
-	{
-		*file_path = *filename;
-		filename++;
-		file_path++;
-	}
-	*file_path = '\0';
-	return (return_p);
+	return (dest);
 }

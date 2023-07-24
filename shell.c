@@ -13,7 +13,7 @@ int main(void)
 
 	while (1)
 	{
-		char * trimed_line;
+		char *trimed_line;
 		ssize_t n;
 		int status;
 

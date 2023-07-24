@@ -1,5 +1,11 @@
 #include "main.h"
 
+/**
+ * _strcat - concats two strings
+ * @dest: first string
+ * @src: second string
+ * Return: pointer to dest string
+*/
 char *_strcat(char *dest, char *src)
 {
 	char *destp = dest;
@@ -17,7 +23,11 @@ char *_strcat(char *dest, char *src)
 	return (dest);
 }
 
-
+/**
+ * _strlen - gives the length of the string
+ * @str: first string count it's length
+ * Return: the length of the string
+*/
 int _strlen(char *str)
 {
 	int len = 0;
@@ -27,6 +37,13 @@ int _strlen(char *str)
 
 	return (len);
 }
+
+/**
+ * _strcmp - compares two strings
+ * @s1: first string to compare
+ * @s2: second string to compare
+ * Return: 1 if they are equal, -1 otherwise
+*/
 
 int _strcmp(char *s1, char *s2)
 {
@@ -92,14 +109,23 @@ char *_strtok(char *str, char *del)
 	return (token);
 }
 
+/**
+ * _strcpy - function to copy src string to dst string
+ * @dest: string to copy into
+ * @src: string to copy
+ * Return: dest string
+*/
 char *_strcpy(char *dest, char *src)
 {
-	int i = 0;
-	while (src[i] != '\0')
+	char *r_dest = dest;
+	char *r_src = src;
+
+	while (*r_src != '\0')
 	{
-		dest[i] = src[i];
-		i++;
+		*r_dest = *r_src;
+		r_dest++;
+		r_src++;
 	}
-	dest[i] = '\0';
-	return dest;
+	*r_dest = '\0';
+	return (dest);
 }

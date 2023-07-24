@@ -27,9 +27,10 @@ char *_getenv(char *name)
 }
 
 /**
- * _setenv: sets the value of the environment variable
+ * _setenv - sets the value of the environment variable
  * @name: the name of the environment variable
  * @value: the value of the environment variable
+ * @overwrite: whether to overwrite the value of the environment variable
  * Return: 0 on success, -1 on failure
 */
 int _setenv(char *name, char *value, int overwrite)
@@ -42,16 +43,17 @@ int _setenv(char *name, char *value, int overwrite)
 
 	size = _strlen(name) + _strlen(value) + 2;
 	full_str = malloc(sizeof(char) * size);
-	if(full_str == NULL)
+	if (full_str == NULL)
 		return (-1);
-	
+
 	eq_name = _strcat(_strcpy(full_str, name), "=");
 	full_name = _strcat(eq_name, value);
 
 	if (_getenv(name) == NULL)
 	{
 		int result = putenv(full_name);
-		if(result != 0)
+
+		if (result != 0)
 		{
 			free(full_name);
 			return (-1);
@@ -60,6 +62,7 @@ int _setenv(char *name, char *value, int overwrite)
 	else if (overwrite != 0)
 	{
 		int result = putenv(full_name);
+
 		if (result != 0)
 		{
 			free(full_name);
@@ -78,10 +81,12 @@ int _setenv(char *name, char *value, int overwrite)
 int _unsetenv(char *name)
 {
 	char **envp = environ;
+
 	while (*envp != NULL)
 	{
 		char *current_value = *envp;
 		int name_len = _strlen(name);
+
 		if (_strcmp(name, current_value) == 1 && current_value[name_len] == '=')
 		{
 			char **next;

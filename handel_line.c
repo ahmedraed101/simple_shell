@@ -5,7 +5,6 @@
 /**
  * handel_line - function handels the input until execve
  * @line: the input form user
- * @len: the len of the line
  * Return: an int to decide to exit or not
  */
 int handel_line(char *line)
@@ -20,7 +19,7 @@ int handel_line(char *line)
 	if (command == NULL)
 		return (0);
 
-	if (_strcmp("exit", command) == 1)
+	if (_strcmp(command, "exit") == 1)
 	{
 		int i = 1;
 
@@ -30,6 +29,24 @@ int handel_line(char *line)
 		return (i);
 	}
 
+	if (execute_command(args) == 0)
+	{
+		free(args);
+		return (0);
+	}
+	command = find_path(command);
+	if (command != NULL)
+	{
+		args[0] = command;
+		if (execute_command(args) == 0)
+		{
+			free(command);
+			free(args);
+			return (0);
+		}
+	}
+
+	free(command);
 	free(args);
 	return (0);
 }
