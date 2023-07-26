@@ -41,9 +41,7 @@ int handel_line(char *line)
 			free(command);
 			free(args);
 			return (0); }
-	} else
-		perror(getenv("_"));
-
+	}
 	free(command);
 	free(args);
 	return (0);
