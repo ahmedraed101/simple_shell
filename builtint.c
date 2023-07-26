@@ -6,11 +6,8 @@
  * @prog_name: the program name for errors
  * Return: 0 on success or -1 on filure
  */
-int builtin(char **args, char *prog_name)
+int builtin(char **args, char __attribute__((unused)) *prog_name)
 {
-	pid_t child_pid;
-	int status;
-
 	if (_strcmp(args[0], "env") == 1)
 	{
 		if (args[1] != NULL)
@@ -18,25 +15,37 @@ int builtin(char **args, char *prog_name)
 			char *err = _concat("env: '", args[1], "': No such file or directory\n");
 
 			write(0, err, _strlen(err));
-			free(args);
 			free(err);
 			return (0); }
-		child_pid = fork();
-		if (child_pid == 0)
-		{
-			print_env();
-			exit(0); }
-		else
-		{
-			wait(&status);
-			free(args); }
+		print_env();
+		free(args);
 		return (0);
 
-	} else if (_strcmp(args[0], "setenv") == 1)
+	} else if (_strcmp("setenv", args[0]) == 1)
 	{
-		write(0, prog_name, _strlen(prog_name));
+		if (args[1] == NULL || args[2] == NULL)
+		{
+			write(1, "setenv VARIABLE VALUE\n", 22);
+			free(args);
+			return (0); }
+		if (_setenv(args[1], args[2], 1) == 0)
+		{
+			free(args);
+			return (0); }
+		write(1, "setenv error\n", 13);
+		free(args);
+		return (0);
 	} else if (_strcmp(args[0], "unsetenv") == 1)
 	{
-	}
+		if (args[1] ==  NULL)
+		{
+			free(args);
+			write(1, "unsetenv VARIABLE_NAME\n", 23);
+			return (0); }
+		if (_unsetenv(args[1]) == 0)
+		{
+			free(args);
+			return (0); }
+		write(1, "unsetenv error\n", 15); }
 	return (-1);
 }

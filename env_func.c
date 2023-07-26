@@ -64,12 +64,13 @@ int _setenv(char *name, char *value, int overwrite)
 	eq_name = _strcat(_strcpy(full_str, name), "=");
 	full_name = _strcat(eq_name, value);
 
-	if (_getenv(name) == NULL)
+	if (getenv(name) == NULL)
 	{
 		int result = putenv(full_name);
 
 		if (result != 0)
 		{
+			free(full_str);
 			free(full_name);
 			return (-1);
 		}
@@ -80,6 +81,7 @@ int _setenv(char *name, char *value, int overwrite)
 
 		if (result != 0)
 		{
+			free(full_str);
 			free(full_name);
 			return (-1);
 		}
@@ -105,8 +107,16 @@ int _unsetenv(char *name)
 		if (_strcmp(name, current_value) == 1 && current_value[name_len] == '=')
 		{
 			char **next;
+			int i = 0;
 
-			free(_getenv(name));
+			while (1)
+			{
+				if (_strcmp(name, environ[i]) == 1)
+				{
+					free(environ[i]);
+					break; }
+			i++; }
+
 			next = envp + 1;
 			while (*next != NULL)
 			{
