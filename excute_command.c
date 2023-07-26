@@ -35,7 +35,7 @@ int execute_command(char **args, char *prog_name)
 	else
 	{
 		waitpid(child_pid, &status, 0);
-		return (-1);
+		return (0);
 	}
 	free(error_message);
 	return (0);
