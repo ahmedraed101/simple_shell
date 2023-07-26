@@ -33,7 +33,7 @@ int handel_line(char *line, char *prog_name)
 	{
 		free(args);
 		return (0); }
-	command = find_path(command);
+	command = find_path(command, prog_name);
 	if (command != NULL)
 	{
 		args[0] = command;

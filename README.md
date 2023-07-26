@@ -4,7 +4,6 @@
 
 - [Ahmed Raed](https://github.com/ahmedraed101)
 
-- [Mohamed Abdelhaleem](https://github.com/Mohamedabdelhaleemprof)
 
 ### some information about Unix shell
 - In 1969 a team led by computer scientists Ken Thompson and Dennis Ritchie

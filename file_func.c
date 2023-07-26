@@ -5,17 +5,20 @@
 /**
  * find_path - resolve the path of command execution
  * @command: command to be executed
+ * @prog_name: the name of the program to use in perror
  * Return: path or NULL if not.
  */
-char *find_path(char *command)
+char *find_path(char *command, char *prog_name)
 {
 	char *path = getenv("PATH");
 	char *token, *temp, *c_path;
+	char *error_message = _concat(prog_name, ": 1: ", command);
 
 	temp = _strdup(path);
 	if (temp == NULL)
 	{
-		perror(getenv("_"));
+		perror(error_message);
+		free(error_message);
 		exit(EXIT_FAILURE);
 	}
 	token = strtok(temp, ":");
@@ -24,18 +27,22 @@ char *find_path(char *command)
 		c_path = _concat(token, "/", command);
 		if (c_path == NULL)
 		{
-			perror(getenv("_"));
+			perror(error_message);
+			free(error_message);
 			exit(EXIT_FAILURE);
 		}
 		if (access(c_path, F_OK) == 0 && access(c_path, X_OK) == 0)
 		{
 			free(temp);
+			free(error_message);
 			return (c_path);
 		}
 		free(c_path);
 		token = strtok(NULL, ":");
 	}
 	free(temp);
+	perror(error_message);
+	free(error_message);
 	return (NULL);
 }
 

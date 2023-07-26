@@ -11,19 +11,17 @@ int execute_command(char **args, char *prog_name)
 {
 	pid_t child_pid;
 	int status;
-	char *error_message = _concat(prog_name, ": 1: ", args[0]);
+	char *error_message;
 
 	if (access(args[0], F_OK) != 0 || access(args[0], X_OK) != 0)
-	{
-		perror(error_message);
-		free(error_message);
-		return (-1); }
+		return (-1);
 
 	child_pid = fork();
 	if (child_pid == 0)
 	{
 		if (execve(args[0], args, environ) == -1)
 		{
+			error_message = _concat(prog_name, ": 1: ", args[0]);
 			perror(error_message);
 			free(error_message);
 			exit(EXIT_FAILURE);
@@ -32,12 +30,10 @@ int execute_command(char **args, char *prog_name)
 	}
 	else if (child_pid == -1)
 	{
-		free(error_message);
 		return (-1);
 	}
 	else
 	{
-		free(error_message);
 		waitpid(child_pid, &status, 0);
 		return (-1);
 	}

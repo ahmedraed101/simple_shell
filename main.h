@@ -23,11 +23,12 @@ char *trim_space(char *str);
 int handel_line(char *line, char *prog_name);
 char **line_args(char *line);
 
+int print_env(void);
 char *_getenv(char *name);
 int _setenv(char *name, char *value, int overwrite);
 int _unsetenv(char *name);
 
-char *find_path(char *);
+char *find_path(char *command, char *prog_name);
 char *_concat(char *str1, char *sep, char *str2);
 void run_file(char **);
 char *_strdup(char *str);

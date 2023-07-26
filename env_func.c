@@ -1,6 +1,21 @@
 #include "main.h"
 
 /**
+ * print_env - print the environment variables
+ * Return: 0 on success, -1 on failure
+*/
+int print_env(void)
+{
+	char **env = environ;
+	int i = 0;
+
+	while (env[i])
+		write(0, env[i], _strlen(env[i]));
+
+	return (0);
+}
+
+/**
  * _getenv - a function that gets the value of environment variable
  * @name: the name of the environment variable
  * Return: the value of the environment variable
