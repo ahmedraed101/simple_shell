@@ -12,6 +12,7 @@ int handel_line(char *line, char *prog_name)
 {
 	char *command;
 	char **args;
+	static int last_stat = 1;
 
 	args = line_args(line);
 	if (args == NULL)
@@ -19,21 +20,21 @@ int handel_line(char *line, char *prog_name)
 	command = args[0];
 	if (command == NULL)
 		return (0);
-
 	if (_strcmp(command, "exit") == 1)
 	{
-		int i = 1;
+		int i = last_stat;
 
 		if (args[1] != NULL)
 			i = atoi(args[1]);
 		free(args);
 		return (i); }
-
 	if (builtin(args, prog_name) == 0)
-		return (0);
-
+	{
+		last_stat = 1;
+		return (0); }
 	if (execute_command(args, prog_name) == 0)
 	{
+		last_stat = 1;
 		free(args);
 		return (0); }
 	command = find_path(command, prog_name);
@@ -42,10 +43,12 @@ int handel_line(char *line, char *prog_name)
 		args[0] = command;
 		if (execute_command(args, prog_name) == 0)
 		{
+			last_stat = 1;
 			free(command), free(args);
 			return (0); }
 	}
 	free(command), free(args);
+	last_stat = 127;
 	return (0);
 }
 
@@ -76,7 +79,7 @@ char **line_args(char *line)
 	args = malloc(MAX_ARG * sizeof(char *));
 	if (args == NULL)
 	{
-		perror(getenv("_"));
+		perror("malloc");
 		exit(EXIT_FAILURE);
 	}
 	token = _strtok(line, " ");
