@@ -34,5 +34,7 @@ void run_file(char **);
 char *_strdup(char *str);
 void *_memcpy(void *dest, void *src, int n);
 
+int builtin(char **args, char *porg_name);
+
 int execute_command(char **args, char *prog_name);
 #endif

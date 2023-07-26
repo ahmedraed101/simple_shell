@@ -28,11 +28,9 @@ int handel_line(char *line, char *prog_name)
 			i = atoi(args[1]);
 		free(args);
 		return (i); }
-	else if (_strcmp(command, "env") == 1)
-	{
-		print_env();
-		free(args);
-		return (0); }
+
+	if (builtin(args, prog_name) == 0)
+		return (0);
 
 	if (execute_command(args, prog_name) == 0)
 	{
@@ -44,14 +42,10 @@ int handel_line(char *line, char *prog_name)
 		args[0] = command;
 		if (execute_command(args, prog_name) == 0)
 		{
-			free(command);
-			free(args);
+			free(command), free(args);
 			return (0); }
-		else
-			write(0, "**", 2);
 	}
-	free(command);
-	free(args);
+	free(command), free(args);
 	return (0);
 }
 
