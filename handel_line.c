@@ -5,9 +5,10 @@
 /**
  * handel_line - function handels the input until execve
  * @line: the input form user
+ * @prog_name: the name of the program to use in perror
  * Return: an int to decide to exit or not
  */
-int handel_line(char *line)
+int handel_line(char *line, char *prog_name)
 {
 	char *command;
 	char **args;
@@ -28,7 +29,7 @@ int handel_line(char *line)
 		free(args);
 		return (i); }
 
-	if (execute_command(args) == 0)
+	if (execute_command(args, prog_name) == 0)
 	{
 		free(args);
 		return (0); }
@@ -36,7 +37,7 @@ int handel_line(char *line)
 	if (command != NULL)
 	{
 		args[0] = command;
-		if (execute_command(args) == 0)
+		if (execute_command(args, prog_name) == 0)
 		{
 			free(command);
 			free(args);

@@ -20,7 +20,7 @@ char *_strcpy(char *, char *);
 char *_strcat(char *dest, char *src);
 
 char *trim_space(char *str);
-int handel_line(char *line);
+int handel_line(char *line, char *prog_name);
 char **line_args(char *line);
 
 char *_getenv(char *name);
@@ -33,5 +33,5 @@ void run_file(char **);
 char *_strdup(char *str);
 void *_memcpy(void *dest, void *src, int n);
 
-int execute_command(char **);
+int execute_command(char **args, char *prog_name);
 #endif

@@ -2,10 +2,12 @@
 
 /**
  * main - the main program loop
+ * @argc: number of arguments
+ * @argv: command line arguments
  * Return: int
 */
 
-int main(void)
+int main(int __attribute__((unused)) argc, char **argv)
 {
 	char *line = NULL;
 	size_t len = 0;
@@ -26,23 +28,20 @@ int main(void)
 			if (isatty(STDIN_FILENO))
 				write(0, "\n", 1);
 			free(line);
-			return (0);
-		}
+			return (0); }
 		line[n - 1] = '\0';
 		trimed_line = trim_space(line);
 		if (trimed_line == NULL)
 			continue;
 
-		status = handel_line(trimed_line);
+		status = handel_line(trimed_line, argv[0]);
 
 		if (status == 1)
 			break;
 		else if (status > 1)
 		{
 			exit_status = status;
-			break;
-		}
-	}
+			break; } }
 	free(line);
 	return (exit_status);
 }
