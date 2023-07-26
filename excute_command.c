@@ -11,6 +11,9 @@ int execute_command(char **args)
 	pid_t child_pid;
 	int status;
 
+	if (access(args[0], F_OK) != 0 || access(args[0], X_OK) != 0)
+		return (-1);
+
 	child_pid = fork();
 	if (child_pid == 0)
 	{

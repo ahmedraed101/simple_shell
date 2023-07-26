@@ -26,14 +26,12 @@ int handel_line(char *line)
 		if (args[1] != NULL)
 			i = atoi(args[1]);
 		free(args);
-		return (i);
-	}
+		return (i); }
 
 	if (execute_command(args) == 0)
 	{
 		free(args);
-		return (0);
-	}
+		return (0); }
 	command = find_path(command);
 	if (command != NULL)
 	{
@@ -42,9 +40,9 @@ int handel_line(char *line)
 		{
 			free(command);
 			free(args);
-			return (0);
-		}
-	}
+			return (0); }
+	} else
+		perror(getenv("_"));
 
 	free(command);
 	free(args);
