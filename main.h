@@ -34,5 +34,4 @@ char *_strdup(char *str);
 void *_memcpy(void *dest, void *src, int n);
 
 int execute_command(char **);
-
 #endif
