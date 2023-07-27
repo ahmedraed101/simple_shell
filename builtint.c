@@ -25,14 +25,14 @@ int builtin(char **args, char __attribute__((unused)) *prog_name)
 	{
 		if (args[1] == NULL || args[2] == NULL)
 		{
-			write(1, "setenv VARIABLE VALUE\n", 22);
+			write(2, "setenv VARIABLE VALUE\n", 22);
 			free(args);
 			return (0); }
 		if (_setenv(args[1], args[2], 1) == 0)
 		{
 			free(args);
 			return (0); }
-		write(1, "setenv error\n", 13);
+		write(2, "setenv error\n", 13);
 		free(args);
 		return (0);
 	} else if (_strcmp(args[0], "unsetenv") == 1)
@@ -40,12 +40,12 @@ int builtin(char **args, char __attribute__((unused)) *prog_name)
 		if (args[1] ==  NULL)
 		{
 			free(args);
-			write(1, "unsetenv VARIABLE_NAME\n", 23);
+			write(2, "unsetenv VARIABLE_NAME\n", 23);
 			return (0); }
 		if (_unsetenv(args[1]) == 0)
 		{
 			free(args);
 			return (0); }
-		write(1, "unsetenv error\n", 15); }
+		write(2, "unsetenv error\n", 15); }
 	return (-1);
 }

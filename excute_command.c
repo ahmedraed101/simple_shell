@@ -22,7 +22,7 @@ int execute_command(char **args, char *prog_name)
 		if (execve(args[0], args, environ) == -1)
 		{
 			error_message = _concat(prog_name, ": 1: ", args[0]);
-			write(1, error_message, _strlen(error_message));
+			write(2, error_message, _strlen(error_message));
 			free(error_message);
 			exit(EXIT_FAILURE);
 		}

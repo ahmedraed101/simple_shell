@@ -10,7 +10,7 @@ int print_env(void)
 	int i = 0;
 
 	while (env[i])
-		write(0, env[i], _strlen(env[i])), write(0, "\n", 1), i++;
+		write(1, env[i], _strlen(env[i])), write(1, "\n", 1), i++;
 
 	return (0);
 }
